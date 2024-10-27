@@ -1,39 +1,38 @@
 import turtle
 
-def koh(size, level):
-    """
-    Рекурсивна функція для малювання кривої Коха.
-    """
+def koch(size, level):
     if level == 0:
         turtle.forward(size)
     else:
-        koh(size / 3, level - 1)
+        koch(size / 3, level - 1)
         turtle.left(60)
-        koh(size / 3, level - 1)
+        koch(size / 3, level - 1)
         turtle.right(120)
-        koh(size / 3, level - 1)
+        koch(size / 3, level - 1)
         turtle.left(60)
-        koh(size / 3, level - 1)
+        koch(size / 3, level - 1)
 
-def snowflake_koh(size, level):
-    """
-    Малює фрактал сніжинка Коха.
-    """
+def snowflake_koch(size, level):
     for _ in range(3):
-        koh(size, level)
+        koch(size, level)
         turtle.right(120)
 
 if __name__ == "__main__":
-    turtle.speed(0)  # Найшвидша швидкість малювання
-    turtle.hideturtle()  # Приховати курсор черепахи
+    turtle.speed(0)  
+    turtle.hideturtle()  
     turtle.penup()
-    turtle.goto(-200, 100)  # Початкова позиція
+    turtle.goto(-200, 100)  
     turtle.pendown()
-    level_recurse = int(input("Введіть рівень рекурсії (ціле число): "))
-    
-    turtle.tracer(0, 0)  # Контроль частоти оновлення екрану
-    snowflake_koh(300, level_recurse)  # Малюємо сніжинку
-    turtle.update()  # Оновлюємо екран після завершення малювання
-    
-    print("Малювання завершено. Закрийте вікно для завершення програми.")
-    turtle.done()  # Залишаємо вікно відкритим, поки користувач не закриє його
+    try:
+        recursion_level = int(input("Введіть рівень рекурсії (ціле число, максимум 10): "))
+        if recursion_level > 10:
+            print("Рівень рекурсії занадто високий, встановіть менше значення (максимум 10).")
+        else:
+            turtle.tracer(0, 0)  
+            snowflake_koch(300, recursion_level)  
+            turtle.update()  
+    except ValueError:
+        print("Неправильний ввід. Будь ласка, введіть дійсне ціле число для рівня рекурсії.")
+    finally:
+        print("Малювання завершено. Закрийте вікно для завершення програми.")
+        turtle.done()  
